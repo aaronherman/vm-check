@@ -1,9 +1,14 @@
 use Win32::SystemInfo;
 use Win32::DriveInfo;
 use Win32;
+use Sys::Hostname;
 
 use Win32::Console::ANSI;
 use Term::ANSIColor;
+
+use DBI;
+my $dbh = DBI->connect('dbi:WMI:');
+
 
 print "====================\n";
 print " System Information\n";
@@ -20,8 +25,20 @@ print "Admin running script: ", $admin ? "Yes" : "No","\n";
 my $name = Win32::LoginName();
 print "Login name: $name\n";
 
-my $node = Win32::NodeName();
-print "Host Name: $node\n";
+$host = hostname;
+print "Host Name: $host\n";
+
+
+#Default printer
+my $printer_query = $dbh->prepare(<<WQL);
+  SELECT * FROM Win32_Printer WHERE Default = TRUE
+WQL
+
+$printer_query->execute();
+while (my @row = $printer_query->fetchrow) {
+  print "Default Printer: ", $row[0]->{Caption}, "\n";
+}
+
 
 print "======================\n";
 print " Hardware Information\n";
