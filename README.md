@@ -7,6 +7,7 @@ VM Check is a Perl script that can be used to see which settings still need to b
 - [ ] Check for networking adapters.
 - [ ] Test to see if connected to Internet/FakeNet.
 - [ ] Run commands to change hostname, user account, etc. to be changed to some random or preconfigured choices.
+- [ ] Add a fake default printer.
 - [ ] Convert to .exe file, so Perl doesn't need to be installed.
 - [ ] Check registry for VM remnants.
 
