@@ -61,7 +61,7 @@ if (($os_name =~ /(([^64-bit]+))/) && ($memory{TotalPhys} < 3.8)) {
   }
 }
 
-my %drive = Win32::DriveInfo::DriveType("NTFS");
+my $drive =  Win32::FsType();
 print "Drive: $drive\n";
 
 
@@ -75,4 +75,4 @@ my @printer_names = ("HP LaserJet 4350", "RICOH Aficio CL3500N PS", "RICOH Afici
 Expression Home XP-330", "Expression ET-3600 EcoTank All-in-One Supertank Printer
 Expression ET-3600 EcoTank");
 
-my @computer_names = ("Johnson-PC", "Home-PC", "LivingRoom-PC", "Smith-PC", "Anderson-PC", "Johnson-Desktop", "Johnson-Laptop")
+my @computer_names = ("Johnson-PC", "Home-PC", "LivingRoom-PC", "Smith-PC", "Anderson-PC", "Johnson-Desktop", "Johnson-Laptop");
