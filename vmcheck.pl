@@ -10,9 +10,9 @@ use DBI;
 my $dbh = DBI->connect('dbi:WMI:');
 
 
-print "====================\n";
+print "\n====================\n";
 print " System Information\n";
-print "====================\n";
+print "====================\n\n";
 
 
 my $os_name = Win32::GetOSDisplayName();
@@ -40,19 +40,39 @@ while (my @row = $printer_query->fetchrow) {
 }
 
 
-print "======================\n";
+print "\n======================\n";
 print " Hardware Information\n";
-print "======================\n";
+print "======================\n\n";
 
 
 my %memory;
 Win32::SystemInfo::MemoryStatus(%memory,'GB');
 print "RAM: $memory{TotalPhys} Gb\n";
 
-if (($os_name =~ /(([^64-bit]+))/) && ($memory{TotalPhys} > 3.9)){
-  print color("red"), "64-bit OS with less than 3.9Gb RAM\n", color("reset");
+if (($os_name =~ /(([^64-bit]+))/) && ($memory{TotalPhys} < 3.8)) {
+  print color("red"), "64-bit OS with less than 3.8Gb RAM\n", color("reset");
+} else {
+  if (($os_name =~ /(([^64-bit]+))/) && ($memory{TotalPhys} > 3.8)) {
+    print "64-bit OS with more than 3.8Gb RAM\n";
+  } else {
+    if ($os_name =~ /(([^32-bit]+))/) {
+      print "32-bit OS"
+    }
+  }
 }
 
-
 my %drive = Win32::DriveInfo::DriveType("NTFS");
-print "Drive: $drive";
+print "Drive: $drive\n";
+
+
+
+
+
+
+
+#To be used for adding a fake printer, and changing Hostname/PC Name
+my @printer_names = ("HP LaserJet 4350", "RICOH Aficio CL3500N PS", "RICOH Aficio CL3500N PS", "HP Officejet 4620", "Expression Home XP-330 Small-in-One All-in-One Printer
+Expression Home XP-330", "Expression ET-3600 EcoTank All-in-One Supertank Printer
+Expression ET-3600 EcoTank");
+
+my @computer_names = ("Johnson-PC", "Home-PC", "LivingRoom-PC", "Smith-PC", "Anderson-PC", "Johnson-Desktop", "Johnson-Laptop")
