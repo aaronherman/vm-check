@@ -100,19 +100,29 @@ sub add_printer {
   #Run command and save result
   $result = `$powershell -command "$command"`;
 
+  # Changing defaault printer command
+  my $print_command = '(New-Object -ComObject WScript.Network).SetDefaultPrinter(\'' . $printer_names[$print_rand] . '\')';
+
+  $default_result = `$powershell -command "$print_command"`;
+
   if ($result) {
     print "Adding printer failed. It may already be added\n";
   } else {
     print "Successfully added printer\n";
+  }
+  if ($default_result) {
+    print "Changing default printer failed.\n";
+  } else {
+    print "Sucessfully changed default printer.\n"
   }
 
   print $result;
 }
 
 
-
-my @computer_names = ("Johnson-PC", "Home-PC", "LivingRoom-PC", "Smith-PC", "Anderson-PC", "Johnson-Desktop", "Johnson-Laptop");
-
+sub change_host {
+  my @computer_names = ("Johnson-PC", "Home-PC", "LivingRoom-PC", "Smith-PC", "Anderson-PC", "Johnson-Desktop", "Johnson-Laptop");
+}
 
 
 main();
