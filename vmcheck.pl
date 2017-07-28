@@ -65,14 +65,34 @@ my $drive =  Win32::FsType();
 print "Drive: $drive\n";
 
 
+#################
+#Add printer code
+#################
+
+sub add_printer {
+  #Location of PowerShell
+  my $powershell = 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe';
+  #Array of printer names
+  my @printer_names = ("HP LaserJet 4350", "RICOH Aficio CL3500N PS", "RICOH Aficio CL3500N PS", "HP Officejet 4620", "Epson Home XP-330", "Epson ET-3600 EcoTank All-in-One");
+  #Get a random printer from the array "printer_names"
+  my $print_rand = int(rand(scalar @printer_names));
+
+  print "Adding printer...\n";
+
+  #Builds the command
+  my $command = 'Add-Printer -Name \"' . $printer_names[$print_rand] . '\" -DriverName \"Microsoft XPS Document Writer v4\" -PortName \"portprompt:\"';
+  #Run command and save result
+  $result = `$powershell -command "$command"`;
+
+  if ($result) {
+    print "Adding printer failed. It may already be added\n";
+  } else {
+    print "Successfully added printer\n";
+  }
+
+  print $result;
+}
 
 
-
-
-
-#To be used for adding a fake printer, and changing Hostname/PC Name
-my @printer_names = ("HP LaserJet 4350", "RICOH Aficio CL3500N PS", "RICOH Aficio CL3500N PS", "HP Officejet 4620", "Expression Home XP-330 Small-in-One All-in-One Printer
-Expression Home XP-330", "Expression ET-3600 EcoTank All-in-One Supertank Printer
-Expression ET-3600 EcoTank");
 
 my @computer_names = ("Johnson-PC", "Home-PC", "LivingRoom-PC", "Smith-PC", "Anderson-PC", "Johnson-Desktop", "Johnson-Laptop");
