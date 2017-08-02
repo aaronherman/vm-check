@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 use Win32::SystemInfo;
 use Win32::DriveInfo;
 use Win32;
@@ -25,7 +28,7 @@ sub main {
   my $name = Win32::LoginName();
   print "Login name: $name\n";
 
-  $host = hostname;
+  my $host = hostname;
   print "Host Name: $host\n";
 
 
@@ -98,12 +101,12 @@ sub add_printer {
   #Builds the command
   my $command = 'Add-Printer -Name \"' . $printer_names[$print_rand] . '\" -DriverName \"Microsoft XPS Document Writer v4\" -PortName \"portprompt:\"';
   #Run command and save result
-  $result = `$powershell -command "$command"`;
+  my $result = `$powershell -command "$command"`;
 
   # Changing defaault printer command
   my $print_command = '(New-Object -ComObject WScript.Network).SetDefaultPrinter(\'' . $printer_names[$print_rand] . '\')';
 
-  $default_result = `$powershell -command "$print_command"`;
+  my $default_result = `$powershell -command "$print_command"`;
 
   if ($result) {
     print "Adding printer failed. It may already be added\n";
