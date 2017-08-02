@@ -10,7 +10,7 @@ This is mainly a project for me to test out and learn Perl. There are other tech
 - [ ] Check for networking adapters.
 - [ ] Test to see if connected to Internet/FakeNet.
 - [ ] Run commands to change hostname, user account, etc. to be changed to some random or preconfigured choices.
-- [ ] Add a fake default printer.
+- [x] Add a fake default printer.
 - [ ] Convert to .exe file, so Perl doesn't need to be installed. Likely using PAR::Packer.
 - [ ] Check registry for VM remnants.
 
